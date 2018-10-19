@@ -3,7 +3,7 @@ FROM debian:9
 Maintainer Adam Hickerson <adam.hickerson@cedarware.com>
 
 # some const dependent on version
-ENV TRUESTUDIO_VER x86_64_v9.0.0_20180117-1023
+ENV TRUESTUDIO_VER x86_64_v9.1.0_20181011-1241
 ENV TRUESTUDIO_URL http://download.atollic.com/TrueSTUDIO/installers/Atollic_TrueSTUDIO_for_STM32_linux_${TRUESTUDIO_VER}.tar.gz
 
 RUN apt-get update && apt-get install -y curl --no-install-recommends
