@@ -15,7 +15,7 @@ RUN set -xue && \
   md5sum -c $(basename ${TRUESTUDIO_URL}.MD5) && \
   rm $(basename ${TRUESTUDIO_URL}.MD5)
 
-ENV TRUESTUDIO_INSTALL_PATH /opt/Atollic_TrueSTUDIO_for_STM32_9.0.0
+ENV TRUESTUDIO_INSTALL_PATH /opt/Atollic_TrueSTUDIO_for_STM32_9.1.0
 
 # Install dependencies
 RUN apt-get update && apt-get install -y libc6-i386 libusb-0.1-4 libwebkitgtk-3.0-0 libncurses5 --no-install-recommends
