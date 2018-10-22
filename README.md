@@ -24,6 +24,8 @@ TrueSTUDIO from Atollic is under their license.
 # Additional Notes
 Additional packages required are `libgtk2.0-0 libxtst6 xvfb`
 
+`bsdtar` breaks apt-get, so it gets restored after being used to untar the truestudio program
+
 Without `xvfb`, the headless TrueSTUDIO may not start properly. Need to do this before running the build command. 
 ```
     Xvfb :1 -ac -screen 0 1024x768x8 &
