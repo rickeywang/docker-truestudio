@@ -6,11 +6,11 @@ Maintainer Adam Hickerson <adam.hickerson@cedarware.com>
 ENV TRUESTUDIO_VER x86_64_v9.1.0_20181011-1241
 ENV TRUESTUDIO_URL http://download.atollic.com/TrueSTUDIO/installers/Atollic_TrueSTUDIO_for_STM32_linux_${TRUESTUDIO_VER}.tar.gz
 
-RUN apt-get update && apt-get install -y curl --no-install-recommends
+RUN apt-get update && apt-get install -y curl ca-certificates --no-install-recommends
 
 # Download first- speeds up builds if dependencies change
 RUN set -xue && \
-  curl -O ${TRUESTUDIO_URL}     && \
+  curl -O ${TRUESTUDIO_URL} && \
   curl -O ${TRUESTUDIO_URL}.MD5 && \
   md5sum -c $(basename ${TRUESTUDIO_URL}.MD5) && \
   rm $(basename ${TRUESTUDIO_URL}.MD5)
@@ -18,10 +18,14 @@ RUN set -xue && \
 ENV TRUESTUDIO_INSTALL_PATH /opt/Atollic_TrueSTUDIO_for_STM32_9.1.0
 
 # Install dependencies
-RUN apt-get update && apt-get install -y libc6-i386 libusb-0.1-4 libwebkitgtk-3.0-0 libncurses5 --no-install-recommends
+RUN apt-get update && \
+	apt-get install -y libc6-i386 libusb-0.1-4 libwebkitgtk-3.0-0 libncurses5 libgtk2.0-0 libxtst6 xvfb --no-install-recommends
 
 # Install and use alternate tar to fix issues with docker filesystem
-RUN apt-get install -y bsdtar && ln -sf $(which bsdtar) $(which tar)
+# Also save the original tar for future use
+RUN apt-get install -y bsdtar  && \
+    cp $(which tar) $(which tar)~  && \
+    ln -sf $(which bsdtar) $(which tar)
 
 # Create links in ONE RUN
 RUN set -xue && \
@@ -41,3 +45,6 @@ RUN set -xue && \
   mkdir -p ${installPath} && \
   tar xzvfp ${scriptPath}/install.data -C ${installPath} && \
   rm $f && rm -r ${scriptPath}
+
+# put back the original tar
+RUN mv $(which tar)~ $(which tar)
