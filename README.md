@@ -22,7 +22,9 @@ Dockerfile is under MIT license.
 TrueSTUDIO from Atollic is under their license.  
 
 # Additional Notes
-Additional packages required are `libgtk2.0-0 libxtst6 xvfb`
+It is not strictly neccessary, but to avoid the errors caused by missing X server such as `Unable to init server: Could not connect: Connection refused` or `Caused by: org.eclipse.swt.SWTError: No more handles [gtk_init_check() failed]`, you can follow these steps to avoid them by having a dummy X server. 
+
+Packages required are `libgtk2.0-0 libxtst6 xvfb`
 
 `bsdtar` breaks apt-get, so it gets restored after being used to untar the truestudio program
 
